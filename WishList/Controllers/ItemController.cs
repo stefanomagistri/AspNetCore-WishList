@@ -20,31 +20,23 @@ namespace WishList.Controllers
 
         [HttpGet]
         public IActionResult Create()
-        { 
+        {
             return View("Create");
         }
 
         [HttpPost]
         public IActionResult Create(Item item)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Items.Add(item);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View("Create");
+            _context.Items.Add(item);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)
         {
-           var item = _context.Items.SingleOrDefault(i => i.Id == id);
-            if (item == null)
-                return NotFound();
-
+            var item = _context.Items.SingleOrDefault(i => i.Id == id);
             _context.Items.Remove(item);
             _context.SaveChanges();
-
             return RedirectToAction("Index");
         }
     }
